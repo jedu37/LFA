@@ -1,4 +1,4 @@
-package bloco1.ex3;
+package bloco1.ex4;
 import java.util.*;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -23,15 +23,36 @@ public class prog{
         Stack<Integer> numbers = new Stack<Integer>();
 
         while(true){
-            String[] s = in.nextLine().split("\\s+");
+            String l = in.nextLine();
+            String[] s = l.split("\\s+");
 
             for(int i = 0; i < s.length; i++){
                 if(isKnownExtense(s[i],numbDic)){
-                    numbers.add(numbDic.get(s[i]));
+                    if(s[i].equalsIgnoreCase("hundred") || s[i].equalsIgnoreCase("thousand") || s[i].equalsIgnoreCase("million")){
+                        int n = numbers.pop();
+                        int m = numbDic.get(s[i]);
+                        int newVal = n*m;
+                        numbers.add(newVal);
+                    }
+                    else{
+                        numbers.add(numbDic.get(s[i]));
+                    }
+                }
+                
+                String[] c = s[i].split("-");
+
+                if(c.length == 2){
+                    if(isKnownExtense(c[0],numbDic) && isKnownExtense(c[1], numbDic)){
+                        int n = numbDic.get(c[0]);
+                        int m = numbDic.get(c[1]);
+                        int newVal = n+m;
+                        numbers.add(newVal);
+                    }
                 }
             }
 
-            printStack(numbers);
+            printValue(numbers, l);
+            numbers.clear();
 
         }
     }
@@ -49,14 +70,14 @@ public class prog{
         return false;
     }
 
-    private static void printStack(Stack<Integer> e){
+    private static void printValue(Stack<Integer> e, String s){
         Iterator<Integer> temp1 = e.iterator();
-
-        System.out.print("A list of numbers:");
+        int val = 0;
+        
         while(temp1.hasNext()){
-            System.out.print(String.format(" %d", temp1.next()));
+            val = val + temp1.next();
         }
-        System.out.print("\n");
-
+        
+        System.out.print(String.format("\"%s\"--> %d\n", s,val));
     }
 }
