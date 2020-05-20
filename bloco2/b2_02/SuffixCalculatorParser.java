@@ -28,7 +28,7 @@ public class SuffixCalculatorParser extends Parser {
 
 	private static String[] makeLiteralNames() {
 		return new String[] {
-			null, "'\u2217'", "'/'", "'+'", "'\u2212'"
+			null, "'*'", "'/'", "'+'", "'-'"
 		};
 	}
 	private static final String[] _LITERAL_NAMES = makeLiteralNames();
@@ -198,25 +198,46 @@ public class SuffixCalculatorParser extends Parser {
 	}
 
 	public static class ExprContext extends ParserRuleContext {
-		public Token op;
+		public ExprContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_expr; }
+	 
+		public ExprContext() { }
+		public void copyFrom(ExprContext ctx) {
+			super.copyFrom(ctx);
+		}
+	}
+	public static class NumberContext extends ExprContext {
 		public TerminalNode NUMBER() { return getToken(SuffixCalculatorParser.NUMBER, 0); }
+		public NumberContext(ExprContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof SuffixCalculatorListener ) ((SuffixCalculatorListener)listener).enterNumber(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof SuffixCalculatorListener ) ((SuffixCalculatorListener)listener).exitNumber(this);
+		}
+	}
+	public static class FullExpContext extends ExprContext {
+		public ExprContext first;
+		public ExprContext second;
+		public Token op;
 		public List<ExprContext> expr() {
 			return getRuleContexts(ExprContext.class);
 		}
 		public ExprContext expr(int i) {
 			return getRuleContext(ExprContext.class,i);
 		}
-		public ExprContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
-		}
-		@Override public int getRuleIndex() { return RULE_expr; }
+		public FullExpContext(ExprContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof SuffixCalculatorListener ) ((SuffixCalculatorListener)listener).enterExpr(this);
+			if ( listener instanceof SuffixCalculatorListener ) ((SuffixCalculatorListener)listener).enterFullExp(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof SuffixCalculatorListener ) ((SuffixCalculatorListener)listener).exitExpr(this);
+			if ( listener instanceof SuffixCalculatorListener ) ((SuffixCalculatorListener)listener).exitFullExp(this);
 		}
 	}
 
@@ -237,6 +258,10 @@ public class SuffixCalculatorParser extends Parser {
 			enterOuterAlt(_localctx, 1);
 			{
 			{
+			_localctx = new NumberContext(_localctx);
+			_ctx = _localctx;
+			_prevctx = _localctx;
+
 			setState(20);
 			match(NUMBER);
 			}
@@ -250,17 +275,18 @@ public class SuffixCalculatorParser extends Parser {
 					_prevctx = _localctx;
 					{
 					{
-					_localctx = new ExprContext(_parentctx, _parentState);
+					_localctx = new FullExpContext(new ExprContext(_parentctx, _parentState));
+					((FullExpContext)_localctx).first = _prevctx;
 					pushNewRecursionContext(_localctx, _startState, RULE_expr);
 					setState(22);
 					if (!(precpred(_ctx, 2))) throw new FailedPredicateException(this, "precpred(_ctx, 2)");
 					setState(23);
-					expr(0);
+					((FullExpContext)_localctx).second = expr(0);
 					setState(24);
-					((ExprContext)_localctx).op = _input.LT(1);
+					((FullExpContext)_localctx).op = _input.LT(1);
 					_la = _input.LA(1);
 					if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__0) | (1L << T__1) | (1L << T__2) | (1L << T__3))) != 0)) ) {
-						((ExprContext)_localctx).op = (Token)_errHandler.recoverInline(this);
+						((FullExpContext)_localctx).op = (Token)_errHandler.recoverInline(this);
 					}
 					else {
 						if ( _input.LA(1)==Token.EOF ) matchedEOF = true;
