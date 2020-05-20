@@ -2,22 +2,15 @@ package bloco1.ex7;
 import java.util.*;
 
 public class prog {
-    tree
+    static Scanner in = new Scanner(System.in);
 
     public static void main(String[] args) {
-        
-    }
+        ExpressionTree tree = new ExpressionTree();
 
-    public createPrefix(){
-        if(in.hasNextDouble())//nextwordisanumber
-        {
-        //leaftreewiththenumber
-        }
-        else//nextwordistheoperator
-        {
-        //treewiththeform:operatorleftExpressionrightExpression
-        //leftExpressionandrightExpressioncanalsobecreatedwithcreatePrefix
+        while(true){
+            String l = in.nextLine();
+            tree.addData(l);
+            System.out.println(tree.inFix() + " = "+tree.eval());
         }
     }
-
 }

@@ -1,13 +1,13 @@
 package bloco1.ex7;
 
 public class Node {
-    private type tipo;
-    private String value;
-    private Node left, right;
+     type tipo;
+     String value;
+     Node left, right;
 
     public Node(String val, type tipo){ 
         value = val; 
-        left = right = null;
+        left =  right = null;
         this.tipo = tipo;
     }
     
@@ -38,13 +38,7 @@ public class Node {
 
     @Override
     public String toString(){
-        if(left == null && right == null){
-            return String.format("%s",value);
-        }
-        else if(left == null){
-            return String.format("%s",value);
-        }
-        else if(right == null){
+        if(left == null && right == null && tipo == type.NUM){
             return String.format("%s",value);
         }
         else{
