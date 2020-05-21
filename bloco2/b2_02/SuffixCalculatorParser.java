@@ -16,7 +16,7 @@ public class SuffixCalculatorParser extends Parser {
 	protected static final PredictionContextCache _sharedContextCache =
 		new PredictionContextCache();
 	public static final int
-		T__0=1, T__1=2, T__2=3, T__3=4, NUMBER=5, NEWLINE=6, WS=7;
+		T__0=1, T__1=2, T__2=3, T__3=4, Number=5, NEWLINE=6, WS=7;
 	public static final int
 		RULE_program = 0, RULE_stat = 1, RULE_expr = 2;
 	private static String[] makeRuleNames() {
@@ -34,7 +34,7 @@ public class SuffixCalculatorParser extends Parser {
 	private static final String[] _LITERAL_NAMES = makeLiteralNames();
 	private static String[] makeSymbolicNames() {
 		return new String[] {
-			null, null, null, null, null, "NUMBER", "NEWLINE", "WS"
+			null, null, null, null, null, "Number", "NEWLINE", "WS"
 		};
 	}
 	private static final String[] _SYMBOLIC_NAMES = makeSymbolicNames();
@@ -108,6 +108,11 @@ public class SuffixCalculatorParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof SuffixCalculatorListener ) ((SuffixCalculatorListener)listener).exitProgram(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof SuffixCalculatorVisitor ) return ((SuffixCalculatorVisitor<? extends T>)visitor).visitProgram(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final ProgramContext program() throws RecognitionException {
@@ -120,7 +125,7 @@ public class SuffixCalculatorParser extends Parser {
 			setState(9);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			while (_la==NUMBER || _la==NEWLINE) {
+			while (_la==Number || _la==NEWLINE) {
 				{
 				{
 				setState(6);
@@ -163,6 +168,11 @@ public class SuffixCalculatorParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof SuffixCalculatorListener ) ((SuffixCalculatorListener)listener).exitStat(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof SuffixCalculatorVisitor ) return ((SuffixCalculatorVisitor<? extends T>)visitor).visitStat(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final StatContext stat() throws RecognitionException {
@@ -175,7 +185,7 @@ public class SuffixCalculatorParser extends Parser {
 			setState(15);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			if (_la==NUMBER) {
+			if (_la==Number) {
 				{
 				setState(14);
 				expr(0);
@@ -209,7 +219,7 @@ public class SuffixCalculatorParser extends Parser {
 		}
 	}
 	public static class NumberContext extends ExprContext {
-		public TerminalNode NUMBER() { return getToken(SuffixCalculatorParser.NUMBER, 0); }
+		public TerminalNode Number() { return getToken(SuffixCalculatorParser.Number, 0); }
 		public NumberContext(ExprContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
@@ -218,6 +228,11 @@ public class SuffixCalculatorParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof SuffixCalculatorListener ) ((SuffixCalculatorListener)listener).exitNumber(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof SuffixCalculatorVisitor ) return ((SuffixCalculatorVisitor<? extends T>)visitor).visitNumber(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 	public static class FullExpContext extends ExprContext {
@@ -238,6 +253,11 @@ public class SuffixCalculatorParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof SuffixCalculatorListener ) ((SuffixCalculatorListener)listener).exitFullExp(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof SuffixCalculatorVisitor ) return ((SuffixCalculatorVisitor<? extends T>)visitor).visitFullExp(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -263,7 +283,7 @@ public class SuffixCalculatorParser extends Parser {
 			_prevctx = _localctx;
 
 			setState(20);
-			match(NUMBER);
+			match(Number);
 			}
 			_ctx.stop = _input.LT(-1);
 			setState(28);

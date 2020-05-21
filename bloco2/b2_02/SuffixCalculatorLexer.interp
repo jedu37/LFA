@@ -14,7 +14,7 @@ null
 null
 null
 null
-NUMBER
+Number
 NEWLINE
 WS
 
@@ -23,7 +23,7 @@ T__0
 T__1
 T__2
 T__3
-NUMBER
+Number
 NEWLINE
 WS
 

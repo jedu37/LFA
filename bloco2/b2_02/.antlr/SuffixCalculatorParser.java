@@ -16,7 +16,7 @@ public class SuffixCalculatorParser extends Parser {
 	protected static final PredictionContextCache _sharedContextCache =
 		new PredictionContextCache();
 	public static final int
-		T__0=1, T__1=2, T__2=3, T__3=4, NUMBER=5, NEWLINE=6, WS=7;
+		T__0=1, T__1=2, T__2=3, T__3=4, Number=5, NEWLINE=6, WS=7;
 	public static final int
 		RULE_program = 0, RULE_stat = 1, RULE_expr = 2;
 	public static final String[] ruleNames = {
@@ -27,7 +27,7 @@ public class SuffixCalculatorParser extends Parser {
 		null, "'*'", "'/'", "'+'", "'-'"
 	};
 	private static final String[] _SYMBOLIC_NAMES = {
-		null, null, null, null, null, "NUMBER", "NEWLINE", "WS"
+		null, null, null, null, null, "Number", "NEWLINE", "WS"
 	};
 	public static final Vocabulary VOCABULARY = new VocabularyImpl(_LITERAL_NAMES, _SYMBOLIC_NAMES);
 
@@ -102,7 +102,7 @@ public class SuffixCalculatorParser extends Parser {
 			setState(9);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			while (_la==NUMBER || _la==NEWLINE) {
+			while (_la==Number || _la==NEWLINE) {
 				{
 				{
 				setState(6);
@@ -149,7 +149,7 @@ public class SuffixCalculatorParser extends Parser {
 			setState(15);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			if (_la==NUMBER) {
+			if (_la==Number) {
 				{
 				setState(14);
 				expr(0);
@@ -183,7 +183,7 @@ public class SuffixCalculatorParser extends Parser {
 		}
 	}
 	public static class NumberContext extends ExprContext {
-		public TerminalNode NUMBER() { return getToken(SuffixCalculatorParser.NUMBER, 0); }
+		public TerminalNode Number() { return getToken(SuffixCalculatorParser.Number, 0); }
 		public NumberContext(ExprContext ctx) { copyFrom(ctx); }
 	}
 	public static class FullExpContext extends ExprContext {
@@ -221,7 +221,7 @@ public class SuffixCalculatorParser extends Parser {
 			_prevctx = _localctx;
 
 			setState(20);
-			match(NUMBER);
+			match(Number);
 			}
 			_ctx.stop = _input.LT(-1);
 			setState(28);

@@ -27,13 +27,13 @@ public interface SuffixCalculatorListener extends ParseTreeListener {
 	 */
 	void exitStat(SuffixCalculatorParser.StatContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code number}
+	 * Enter a parse tree produced by the {@code Number}
 	 * labeled alternative in {@link SuffixCalculatorParser#expr}.
 	 * @param ctx the parse tree
 	 */
 	void enterNumber(SuffixCalculatorParser.NumberContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code number}
+	 * Exit a parse tree produced by the {@code Number}
 	 * labeled alternative in {@link SuffixCalculatorParser#expr}.
 	 * @param ctx the parse tree
 	 */
